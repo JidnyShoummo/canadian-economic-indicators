@@ -103,12 +103,22 @@ def discover_vectors():
     vectors = []
     for batch in chunks(all_combos, 20):
         results = get_series_info_batch(PRODUCT_ID, batch)
-        for (coord, geo_name, cat_name), result in zip(batch, results):
+
+        # Match each result back to its request by the coordinate the API
+        # echoes back -- NEVER assume response order matches request order.
+        combo_by_coord = {coord: (geo_name, cat_name) for coord, geo_name, cat_name in batch}
+
+        for result in results:
             if result.get("status") != "SUCCESS":
                 continue
-            vector_id = result["object"]["vectorId"]
+            obj = result["object"]
+            returned_coord = obj.get("coordinate")
+            if returned_coord not in combo_by_coord:
+                print(f"  WARNING: got a coordinate back we didn't request: {returned_coord}")
+                continue
+            geo_name, cat_name = combo_by_coord[returned_coord]
             vectors.append({
-                "vector_id": vector_id,
+                "vector_id": obj["vectorId"],
                 "geography": geo_name,
                 "category": cat_name,
             })
