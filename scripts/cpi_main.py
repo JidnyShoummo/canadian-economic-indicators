@@ -120,7 +120,7 @@ def discover_vectors():
 
 # ---------- Step 2: Fetch data for those vectors ----------
 
-def fetch_data(vector_ids, latest_n=5, max_retries=3):
+def fetch_data(vector_ids, latest_n=60, max_retries=3):
     body = [{"vectorId": v, "latestN": latest_n} for v in vector_ids]
     for attempt in range(1, max_retries + 1):
         try:
