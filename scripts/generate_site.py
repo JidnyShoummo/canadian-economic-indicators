@@ -14,7 +14,7 @@ def fetch_cpi_yoy():
         supabase.table("cpi_yoy_change")
         .select("*")
         .order("ref_date", desc=True)
-        .limit(24)
+        .limit(12)
         .execute()
     )
     df = pd.DataFrame(response.data)

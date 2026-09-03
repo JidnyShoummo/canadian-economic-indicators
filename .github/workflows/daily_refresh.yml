@@ -5,7 +5,10 @@ on:
     - cron: '10 12 * * *'   # 8:10 AM EDT (summer) / 7:10 AM EST (winter)
     - cron: '10 13 * * *'   # 9:10 AM EDT (summer) / 8:10 AM EST (winter)
   workflow_dispatch: {}
-  
+
+permissions:
+  contents: write   # needed so this workflow can push the regenerated site back to the repo
+
 jobs:
   refresh:
     runs-on: ubuntu-latest
@@ -26,3 +29,17 @@ jobs:
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+
+      - name: Generate site
+        run: python scripts/generate_site.py
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+
+      - name: Commit and push updated site
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/index.html
+          git diff --staged --quiet && echo "No changes to commit" || git commit -m "Auto-update site $(date +'%Y-%m-%d')"
+          git push
