@@ -17,7 +17,7 @@ WANTED_GEOGRAPHY = [
 ]
 
 WANTED_CATEGORIES = [
-    "All-items", "Food", "Shelter",
+    "All-items", "All-items excluding food and energy","Food", "Shelter",
     "Household operations, furnishings and equipment",
     "Clothing and footwear", "Transportation",
     "Health and personal care", "Recreation, education and reading",
