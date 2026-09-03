@@ -147,8 +147,8 @@ def main():
 
     html = build_page_html(chart_htmls)
 
-    os.makedirs("site", exist_ok=True)
-    with open("site/index.html", "w") as f:
+    os.makedirs("docs", exist_ok=True)
+    with open("docs/index.html", "w") as f:
         f.write(html)
 
     print("Saved site/index.html")
