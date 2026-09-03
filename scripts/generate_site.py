@@ -60,7 +60,7 @@ def build_cpi_chart(df):
 
     fig.update_layout(
         title=dict(
-            text="Canada CPI — Year-over-Year Inflation (Last 24 Months)",
+            text="Canada CPI — Year-over-Year Inflation (Last 12 Months)",
             font=dict(size=20),
         ),
         xaxis_title=None,
