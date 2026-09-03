@@ -62,15 +62,18 @@ def build_cpi_chart(df):
         title=dict(
             text="Canada CPI — Year-over-Year Inflation (Last 24 Months)",
             font=dict(size=20),
+            x=0,
+            xanchor="left",
         ),
         xaxis_title=None,
         yaxis_title="% change vs. same month last year",
         hovermode="x unified",
         template="plotly_white",
-        legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1),
-        margin=dict(t=70, b=40, l=60, r=30),
-        height=500,
+        legend=dict(orientation="h", yanchor="bottom", y=1.12, xanchor="left", x=0),
+        margin=dict(t=110, b=40, l=60, r=30),
+        height=520,
     )
+    
 
     fig.update_yaxes(ticksuffix="%")
 
